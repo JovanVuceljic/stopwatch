@@ -2,12 +2,14 @@
   --primary: rgb(155, 64, 64);
   --gray: rgb(128, 128, 128);
   --black: rgb(0, 0, 0);
+  --white: rgb(255, 255, 255);
+  --font: rgb(68, 68, 68);
 }
 
 html {
   width: 100%;
   height: 100%;
-  font-family: Roboto, sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .stopwatch-page {
@@ -21,6 +23,7 @@ html {
 
   .num {
     position: absolute;
+    user-select: none;
 
     &.num-start {
       top: 30px;
@@ -57,7 +60,7 @@ html {
     z-index: 10;
     width: 40%;
     background: var(--primary);
-    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: -2px 1px 4px 1px rgba(0, 0, 0, 0.3);
   }
 
   .analog-timer-bg {
@@ -65,14 +68,15 @@ html {
     height: 0;
     width: 100%;
     padding-bottom: 100%;
+    box-shadow: inset 0px 0px 6px 1px rgba(0, 0, 0, 0.1);
     background-image: repeating-conic-gradient(from 359deg,
         var(--primary) 0 2deg, transparent 2deg 90deg), repeating-conic-gradient(from 359.5deg,
         var(--black) 0 1deg, transparent 1deg 30deg), repeating-conic-gradient(from 359.75deg,
         var(--gray) 0 .5deg, transparent .5deg 6deg);
 
     mask-image: radial-gradient(circle at center,
-        transparent 66%,
-        #fff 66.1%);
+        rgba(0, 0, 0, 0.02) 66%,
+        var(--black) 66%);
   }
 }
 
@@ -89,11 +93,22 @@ html {
     margin: 5px;
     text-align: center;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
-    padding: 14px 0 10px;
+    padding: 12px 0 10px;
+    border-radius: 4px;
+    letter-spacing: 4px;
+    font-size: 10px;
+    color: var(--font);
+    text-transform: uppercase;
+    font-weight: bold;
+    user-select: none;
 
     &:hover {
-      box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
       cursor: pointer;
+    }
+
+    &:active {
+      box-shadow: inset 0 0 3px 1px rgba(0, 0, 0, 0.1);
     }
   }
 }
@@ -110,6 +125,7 @@ html {
     font-size: 3rem;
     color: var(--primary);
     opacity: 0.8;
+    text-shadow: 2px 1px rgba(0, 0, 0, 0.2);
   }
 
   .mili-sec {
