@@ -9,10 +9,13 @@ const App: React.FC = () => {
   const [isActive, setIsActive] = useState(false);
   const [isPaused, setIsPaused] = useState(true);
   const [time, setTime] = useState(0);
+  const [limit, setLimit] = useState<number | null>(null);
 
   useEffect(() => {
-    let interval: Timer = null; //TODO type
-    if (isActive && isPaused === false) {
+    let interval: Timer = null;
+
+    if (limit && time >= limit) setIsPaused(true)
+    else if (isActive && isPaused === false) {
       interval = setInterval(() => {
         setTime((time) => time + 10);
       }, 10);
@@ -23,7 +26,7 @@ const App: React.FC = () => {
       interval && clearInterval(interval);
     };
 
-  }, [isActive, isPaused]);
+  }, [isActive, isPaused, limit, time]);
 
   const handleStart = () => {
     setIsActive(true);
@@ -37,9 +40,14 @@ const App: React.FC = () => {
     setTime(0);
   };
 
+  const handleLimit = (e: React.ChangeEvent<HTMLInputElement>) => setLimit(Number(e.currentTarget.value) * 1000);
+
   return (
     <div className="stopwatch-page">
       <AnalogStopwatch time={time} />
+      <div className="input-wrap">
+        <input type="number" className="input-limit" onChange={(e) => handleLimit(e)} placeholder="Seconds to pause" />
+      </div>
       <DigitalStopwatch time={time} />
       <div className="button-wrap">
         {!isActive ?
